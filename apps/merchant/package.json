@@ -1,0 +1,19 @@
+{
+  "name": "@relaymesh/merchant",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "Demo x402 merchant: sells a sample API for an EIP-3009 authorised token transfer, verified on-chain.",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": { "start": "tsx src/main.ts", "typecheck": "tsc -p tsconfig.json" },
+  "dependencies": {
+    "@fastify/rate-limit": "11.2.2",
+    "@relaymesh/agent-sdk": "workspace:*",
+    "@relaymesh/chain": "workspace:*",
+    "@relaymesh/relay-mesh": "workspace:*",
+    "fastify": "5.12.8",
+    "nostr-tools": "2.25.5",
+    "viem": "2.57.16"
+  }
+}

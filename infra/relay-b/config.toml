@@ -1,0 +1,16 @@
+# nostr-rs-relay configuration for the demo's "Relay B" (independent operator).
+[info]
+relay_url = "ws://localhost:7002/"
+name = "Relay B (nostr-rs-relay)"
+description = "Independent NIP-01 relay used in the Aava demo."
+
+[database]
+data_directory = "/usr/src/app/db"
+
+[network]
+address = "0.0.0.0"
+port = 8080
+
+[limits]
+messages_per_sec = 50
+max_event_bytes = 131072

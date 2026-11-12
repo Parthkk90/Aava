@@ -1,0 +1,89 @@
+# Aava demo stack. Everything here is local test infrastructure:
+# a devnet chain with worthless tokens, two relays from different codebases,
+# a demo x402 merchant, the static web app, and an optional TURN server.
+#
+#   docker compose -f infra/docker-compose.yml up -d --build
+#   pnpm demo --docker            # scripted Alice/Bob signature demo
+#   open http://localhost:8190    # the app (override with RELAYMESH_WEB_PORT)
+#
+# Ports bind to 127.0.0.1 only.
+name: relaymesh
+
+services:
+  anvil:
+    image: ghcr.io/foundry-rs/foundry:v1.3.5
+    entrypoint: ["anvil", "--host", "0.0.0.0", "--chain-id", "31337"]
+    ports: ["127.0.0.1:8545:8545"]
+    healthcheck:
+      test: ["CMD", "cast", "block-number", "--rpc-url", "http://127.0.0.1:8545"]
+      interval: 2s
+      retries: 30
+
+  relay-a:
+    build: { context: .., dockerfile: infra/Dockerfile, target: relay }
+    environment:
+      RELAY_NAME: "Relay A (Aava reference relay)"
+    ports: ["127.0.0.1:7001:7001"]
+    volumes: ["relay-a-data:/data"]
+
+  relay-b:
+    # Independent implementation (Rust), unmodified upstream image.
+    image: scsibug/nostr-rs-relay:0.9.0
+    ports: ["127.0.0.1:7002:8080"]
+    volumes:
+      - "./relay-b/config.toml:/usr/src/app/config.toml:ro"
+      - "relay-b-data:/usr/src/app/db"
+
+  setup:
+    build: { context: .., dockerfile: infra/Dockerfile, target: tools }
+    command: ["pnpm", "exec", "tsx", "scripts/demo-setup.ts"]
+    environment: { RPC_URL: "http://anvil:8545" }
+    depends_on: { anvil: { condition: service_healthy } }
+    restart: "no"
+
+  merchant:
+    build: { context: .., dockerfile: infra/Dockerfile, target: tools }
+    command: ["pnpm", "--filter", "@relaymesh/merchant", "start"]
+    environment:
+      RPC_URL: "http://anvil:8545"
+      MERCHANT_HOST: "0.0.0.0"
+      MERCHANT_PUBLIC_URL: "http://localhost:7080"
+    ports: ["127.0.0.1:7080:7080"]
+    depends_on: { setup: { condition: service_completed_successfully } }
+
+  web:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+      target: web
+      args:
+        # Defaults: independent public Nostr relays (settings.ts) and the Sepolia testnet.
+        # For a fully local build against this stack's relays and devnet instead, set:
+        #   VITE_DEFAULT_RELAYS: "ws://localhost:7001,ws://localhost:7002"
+        #   VITE_DEFAULT_CHAIN_ID: "31337"
+        VITE_DEFAULT_RELAYS: ""
+        VITE_DEFAULT_CHAIN_ID: "11155111"
+    ports: ["127.0.0.1:${RELAYMESH_WEB_PORT:-8190}:8080"]
+
+  turn:
+    # Optional: `docker compose --profile webrtc up -d turn` for WebRTC relay-only tests.
+    image: coturn/coturn:4.6.3
+    profiles: ["webrtc"]
+    command:
+      - "-n"
+      - "--log-file=stdout"
+      - "--lt-cred-mech"
+      - "--user=demo:demo-only-secret"
+      - "--realm=relaymesh.local"
+      - "--listening-port=3478"
+      - "--min-port=49160"
+      - "--max-port=49180"
+      - "--external-ip=127.0.0.1"
+    ports:
+      - "127.0.0.1:3478:3478/udp"
+      - "127.0.0.1:3478:3478/tcp"
+      - "127.0.0.1:49160-49180:49160-49180/udp"
+
+volumes:
+  relay-a-data: {}
+  relay-b-data: {}

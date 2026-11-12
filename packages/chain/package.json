@@ -1,0 +1,10 @@
+{
+  "name": "@relaymesh/chain",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "exports": { ".": "./src/index.ts", "./testing": "./src/testing.ts", "./demo-token": "./src/demo-token.ts" },
+  "scripts": { "typecheck": "tsc -p tsconfig.json" },
+  "dependencies": {"viem":"2.57.16"}
+}

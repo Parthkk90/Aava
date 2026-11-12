@@ -1,0 +1,11 @@
+{
+  "name": "@relaymesh/payments",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": { "typecheck": "tsc -p tsconfig.json" },
+  "dependencies": {"@relaymesh/chain":"workspace:*","viem":"2.57.16","zod":"4.6.7"},
+  "devDependencies": { "nostr-tools": "2.25.5" }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "@relaymesh/blind-tokens",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "EXPERIMENTAL: RFC 9578 (Privacy Pass, blind RSA) tokens paid for by a verified on-chain top-up. Off by default.",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": { "typecheck": "tsc -p tsconfig.json" },
+  "dependencies": {
+    "@cloudflare/privacypass-ts": "0.9.0",
+    "@relaymesh/chain": "workspace:*",
+    "viem": "2.57.16"
+  },
+  "devDependencies": { "@relaymesh/identity": "workspace:*" }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "@relaymesh/observatory",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": { "typecheck": "tsc -p tsconfig.json" },
+  "dependencies": {"@relaymesh/identity":"workspace:*","@relaymesh/messaging":"workspace:*","@relaymesh/payments":"workspace:*","@relaymesh/relay-mesh":"workspace:*","@relaymesh/chain":"workspace:*","nostr-tools":"2.25.5","viem":"2.57.16"}
+}

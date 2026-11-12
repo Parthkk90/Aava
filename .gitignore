@@ -1,0 +1,16 @@
+node_modules/
+dist/
+build/
+coverage/
+.vite/
+*.log
+.env
+.env.*
+!.env.example
+playwright-report/
+test-results/
+contracts/out/
+contracts/cache/
+infra/data/
+.DS_Store
+.shielded-test-phrase

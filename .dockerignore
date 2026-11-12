@@ -1,0 +1,9 @@
+**/node_modules
+**/dist
+.git
+contracts/out
+contracts/cache
+infra/data
+release
+test-results
+playwright-report

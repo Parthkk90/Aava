@@ -1,0 +1,171 @@
+{
+  "@a16z/helios": {
+    "version": "0.12.0",
+    "license": "MIT",
+    "usedBy": [
+      "@relaymesh/web"
+    ],
+    "repository": "https://github.com/a16z/helios.git"
+  },
+  "@anon-rpc/browser-harness": {
+    "version": "0.4.0",
+    "license": "MIT",
+    "usedBy": [
+      "@relaymesh/web"
+    ],
+    "repository": "git+https://github.com/ethereum/anon-rpc.git"
+  },
+  "@cloudflare/privacypass-ts": {
+    "version": "0.9.0",
+    "license": "Apache-2.0",
+    "usedBy": [
+      "@relaymesh/blind-tokens"
+    ],
+    "repository": "github:cloudflare/privacypass-ts"
+  },
+  "@fastify/rate-limit": {
+    "version": "11.2.2",
+    "license": "MIT",
+    "usedBy": [
+      "@relaymesh/merchant"
+    ],
+    "repository": "git+https://github.com/fastify/fastify-rate-limit.git"
+  },
+  "@kohaku-eth/plugins": {
+    "version": "0.0.1-alpha.20",
+    "license": "UNDECLARED",
+    "usedBy": [
+      "@relaymesh/web"
+    ],
+    "note": "No license field in package.json and no LICENSE file in github.com/ethereum/kohaku (checked 2026-11-06). Sibling packages @kohaku-eth/provider and @kohaku-eth/tornado-cash are MIT. Required by @kohaku-eth/tornado-cash. Needs confirmation from the Kohaku maintainers.",
+    "repository": "https://github.com/ethereum/kohaku.git"
+  },
+  "@kohaku-eth/provider": {
+    "version": "0.1.0-alpha.14",
+    "license": "MIT",
+    "usedBy": [
+      "@relaymesh/web"
+    ],
+    "repository": "https://github.com/ethereum/kohaku.git"
+  },
+  "@kohaku-eth/tornado-cash": {
+    "version": "0.1.0-alpha.35",
+    "license": "MIT",
+    "usedBy": [
+      "@relaymesh/web"
+    ],
+    "repository": "https://github.com/ethereum/kohaku.git"
+  },
+  "@noble/hashes": {
+    "version": "2.0.1",
+    "license": "MIT",
+    "usedBy": [
+      "@relaymesh/identity"
+    ],
+    "repository": "git+https://github.com/paulmillr/noble-hashes.git"
+  },
+  "@scure/bip39": {
+    "version": "2.4.0",
+    "license": "MIT",
+    "usedBy": [
+      "@relaymesh/web"
+    ],
+    "repository": "git+https://github.com/paulmillr/scure-bip39.git"
+  },
+  "fastify": {
+    "version": "5.12.8",
+    "license": "MIT",
+    "usedBy": [
+      "@relaymesh/merchant"
+    ],
+    "repository": "git+https://github.com/fastify/fastify.git"
+  },
+  "idb-keyval": {
+    "version": "6.3.0",
+    "license": "Apache-2.0",
+    "usedBy": [
+      "@relaymesh/web"
+    ],
+    "repository": "git+https://github.com/jakearchibald/idb-keyval.git"
+  },
+  "lucide-react": {
+    "version": "1.69.0",
+    "license": "ISC",
+    "usedBy": [
+      "@relaymesh/web"
+    ],
+    "repository": "https://github.com/lucide-icons/lucide.git"
+  },
+  "nostr-tools": {
+    "version": "2.25.5",
+    "license": "Unlicense",
+    "usedBy": [
+      "@relaymesh/agent-sdk",
+      "@relaymesh/identity",
+      "@relaymesh/messaging",
+      "@relaymesh/observatory",
+      "@relaymesh/relay-mesh",
+      "@relaymesh/merchant",
+      "@relaymesh/relay",
+      "@relaymesh/web"
+    ],
+    "repository": "git+https://github.com/nbd-wtf/nostr-tools.git"
+  },
+  "react": {
+    "version": "19.3.1",
+    "license": "MIT",
+    "usedBy": [
+      "@relaymesh/web"
+    ],
+    "repository": "https://github.com/react/react.git"
+  },
+  "react-dom": {
+    "version": "19.3.1",
+    "license": "MIT",
+    "usedBy": [
+      "@relaymesh/web"
+    ],
+    "repository": "https://github.com/react/react.git"
+  },
+  "react-router-dom": {
+    "version": "7.18.5",
+    "license": "MIT",
+    "usedBy": [
+      "@relaymesh/web"
+    ],
+    "repository": "https://github.com/remix-run/react-router"
+  },
+  "viem": {
+    "version": "2.57.16",
+    "license": "MIT",
+    "usedBy": [
+      "@relaymesh/agent-sdk",
+      "@relaymesh/blind-tokens",
+      "@relaymesh/chain",
+      "@relaymesh/observatory",
+      "@relaymesh/payments",
+      "@relaymesh/merchant",
+      "@relaymesh/web"
+    ],
+    "repository": "https://github.com/wevm/viem.git"
+  },
+  "ws": {
+    "version": "8.22.1",
+    "license": "MIT",
+    "usedBy": [
+      "@relaymesh/relay"
+    ],
+    "repository": "git+https://github.com/websockets/ws.git"
+  },
+  "zod": {
+    "version": "4.6.7",
+    "license": "MIT",
+    "usedBy": [
+      "@relaymesh/agent-sdk",
+      "@relaymesh/messaging",
+      "@relaymesh/payments",
+      "@relaymesh/relay-mesh"
+    ],
+    "repository": "git+https://github.com/colinhacks/zod.git"
+  }
+}

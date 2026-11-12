@@ -1,0 +1,47 @@
+{
+  "name": "relaymesh",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Aava: end-to-end encrypted messaging and authenticated payments over independently operated infrastructure.",
+  "license": "MIT",
+  "packageManager": "pnpm@9.15.9",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @relaymesh/web dev",
+    "build": "pnpm --filter @relaymesh/web build",
+    "typecheck": "pnpm -r --parallel typecheck",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:crops": "vitest run --project crops",
+    "check": "pnpm typecheck && pnpm lint && pnpm test",
+    "relay": "pnpm --filter @relaymesh/relay start",
+    "license-inventory": "tsx scripts/license-inventory.ts",
+    "demo": "tsx scripts/demo.ts",
+    "deploy:testnet": "tsx scripts/deploy-testnet.ts",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@relaymesh/chain": "workspace:*",
+    "@relaymesh/identity": "workspace:*",
+    "@relaymesh/messaging": "workspace:*",
+    "@relaymesh/observatory": "workspace:*",
+    "@relaymesh/payments": "workspace:*",
+    "@relaymesh/relay": "workspace:*",
+    "@relaymesh/relay-mesh": "workspace:*",
+    "nostr-tools": "2.25.5",
+    "viem": "2.57.16",
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.64.1",
+    "@types/node": "24.19.2",
+    "eslint": "10.14.0",
+    "globals": "17.14.0",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.1",
+    "vitest": "5.1.0"
+  }
+}

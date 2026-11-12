@@ -1,0 +1,21 @@
+{
+  "name": "@relaymesh/relay",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "Small reference NIP-01 relay for RelayMesh demos and tests. Any NIP-01 relay can replace it.",
+  "exports": { ".": "./src/index.ts" },
+  "bin": { "relaymesh-relay": "./src/main.ts" },
+  "scripts": {
+    "start": "tsx src/main.ts",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "nostr-tools": "2.25.5",
+    "ws": "8.22.1"
+  },
+  "devDependencies": {
+    "@types/ws": "8.18.2"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "chainId": 11155111,
+  "network": "Sepolia",
+  "contract": "DemoToken",
+  "address": "0x7528272FD75b3F7d137A0700B07f5De2294729E3",
+  "name": "RelayMesh Demo Dollar",
+  "symbol": "rmUSD",
+  "decimals": 6,
+  "deployer": "0x263e2eF99Ff8fBF682D2E24903ddD3a599B2c5bf",
+  "deployTx": "0xa94d875a98867f5613ad88238bed945bbc287ff695fc7fd262c09feb5c61767d",
+  "blockNumber": 12071261,
+  "sourceSha256": "12fe127b10c5444dd17fa5ac1d916975e87688b7f1e9aa9e0ef0ce6b2b536ab0",
+  "compiler": "solc 0.8.28, optimizer 200 runs, no metadata hash",
+  "mints": [
+    {
+      "to": "0x263e2eF99Ff8fBF682D2E24903ddD3a599B2c5bf",
+      "amount": "1000000000",
+      "tx": "0x92d0fabf2deffdf8a4d1174a5f7dbe059dba60a57a4fc8d11337ac6053b0ee74"
+    }
+  ],
+  "deployedAt": "2026-11-05T18:29:15.241Z",
+  "explorer": "https://sepolia.etherscan.io/address/0x7528272FD75b3F7d137A0700B07f5De2294729E3"
+}

@@ -230,6 +230,8 @@ Every claim above is checked by an automated acceptance test that fails when its
 
 [Initial audit](docs/INITIAL_AUDIT.md) · [Architecture](docs/ARCHITECTURE.md) · [Threat model](docs/THREAT_MODEL.md) · [Security](docs/SECURITY.md) · [Privacy](docs/PRIVACY.md) · [CROPS status](docs/CROPS.md) · [Implementation plan](docs/IMPLEMENTATION_PLAN.md)
 
+Found a problem? Open a GitHub issue with the steps to reproduce, your browser, and the network you were on (mainnet, Sepolia, or a local stack).
+
 ## License
 
 MIT. Third-party runtime dependencies and their licenses are listed in [docs/third-party-licenses.json](docs/third-party-licenses.json) (`pnpm license-inventory`).

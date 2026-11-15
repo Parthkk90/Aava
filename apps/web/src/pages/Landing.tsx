@@ -227,12 +227,56 @@ export function Landing() {
         </div>
       </section>
 
-      <footer className="border-t border-ink-700/70">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-8 text-xs text-ink-400 sm:px-6">
-          <div className="flex items-center gap-2">
-            <ServerCog className="h-4 w-4" /> No Aava backend is required to use this app.
+      <footer className="border-t border-ink-700/60">
+        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+          <div className="flex flex-wrap items-start justify-between gap-8">
+            <div className="max-w-sm">
+              <Logo />
+              <p className="mt-4 text-xs leading-relaxed text-ink-400">
+                Aava is a testnet prototype and has not been independently audited. Do not use it with funds or communications you cannot afford to lose.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-10 text-xs">
+              <div className="space-y-2.5">
+                <p className="font-semibold uppercase tracking-wider text-ink-300">Product</p>
+                {[
+                  ["CROPS", "#crops"],
+                  ["How it works", "#how"],
+                  ["Privacy", "#privacy"],
+                ].map(([label, href]) => (
+                  <a key={label} href={href} className="block text-ink-400 transition-colors hover:text-ink-100">
+                    {label}
+                  </a>
+                ))}
+              </div>
+              <div className="space-y-2.5">
+                <p className="font-semibold uppercase tracking-wider text-ink-300">Resources</p>
+                {(
+                  [
+                    { label: "Launch app", href: "/app", internal: true },
+                    ...(REPO_URL ? [{ label: "Source", href: REPO_URL, internal: false }] : []),
+                    { label: "Security", href: "#privacy", internal: false },
+                  ] as { label: string; href: string; internal: boolean }[]
+                ).map(({ label, href, internal }) =>
+                  internal ? (
+                    <Link key={label} to={href} className="block text-ink-400 transition-colors hover:text-ink-100">
+                      {label}
+                    </Link>
+                  ) : (
+                    <a key={label} href={href} rel="noreferrer noopener" target={href.startsWith("http") ? "_blank" : undefined} className="block text-ink-400 transition-colors hover:text-ink-100">
+                      {label}
+                    </a>
+                  ),
+                )}
+              </div>
+            </div>
           </div>
-          <div>MIT licensed · Testnet prototype · Not independently audited</div>
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-ink-700/60 pt-6 text-xs text-ink-400">
+            <div className="flex items-center gap-2">
+              <ServerCog className="h-4 w-4" /> No Aava backend is required to use this app.
+            </div>
+            <div>MIT licensed · Testnet prototype · Not independently audited</div>
+          </div>
         </div>
       </footer>
     </div>

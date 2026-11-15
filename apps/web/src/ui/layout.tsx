@@ -17,10 +17,22 @@ const NAV = [
   { to: "/app/identity", label: "Identity Vault", icon: Fingerprint },
 ];
 
-export function Logo({ className }: { className?: string }) {
+export function Logo({ className, compact }: { className?: string; compact?: boolean }) {
   return (
-    <Link to="/" className={cx("flex items-center", className)}>
-      <span className="text-[17px] font-semibold tracking-tight text-ink-100">Aava</span>
+    <Link to="/" className={cx("group inline-flex items-center gap-2.5", className)} aria-label="Aava home">
+      <span className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-violet via-violet-soft to-cyan shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_6px_20px_-8px_rgba(139,92,246,0.9)] transition-transform group-hover:-translate-y-px">
+        <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" fill="none" aria-hidden="true">
+          <path d="M12 4.5 5.5 19.5" stroke="white" strokeWidth="2.2" strokeLinecap="round" />
+          <path d="M12 4.5 18.5 19.5" stroke="white" strokeWidth="2.2" strokeLinecap="round" />
+          <path d="M8.6 14.8h6.8" stroke="white" strokeWidth="2.2" strokeLinecap="round" />
+          <circle cx="12" cy="4.5" r="1.6" fill="white" />
+        </svg>
+      </span>
+      {!compact && (
+        <span className="text-[17px] font-semibold tracking-tight text-ink-100">
+          Aava
+        </span>
+      )}
     </Link>
   );
 }

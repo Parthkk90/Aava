@@ -64,7 +64,7 @@ export function Dashboard() {
       </header>
 
       <div className="mt-4 grid gap-4 lg:grid-cols-3">
-        <Card>
+        <Card className="group transition-colors hover:border-violet/40">
           <CardHeader title="Identity" icon={<Fingerprint className="h-4 w-4" />} actions={<Badge tone="good">Unlocked</Badge>} />
           <CardBody>
             <KV
@@ -78,7 +78,7 @@ export function Dashboard() {
           </CardBody>
         </Card>
 
-        <Card>
+        <Card className="group transition-colors hover:border-violet/40">
           <CardHeader
             title="Communication"
             icon={<Network className="h-4 w-4" />}
@@ -96,7 +96,7 @@ export function Dashboard() {
           </CardBody>
         </Card>
 
-        <Card>
+        <Card className="group transition-colors hover:border-violet/40">
           <CardHeader
             title="Wallet & network"
             icon={<Wallet className="h-4 w-4" />}
@@ -117,7 +117,7 @@ export function Dashboard() {
       </div>
 
       <div className="mt-4 grid gap-4 lg:grid-cols-3">
-        <Card className="lg:col-span-2">
+        <Card className="lg:col-span-2 transition-colors hover:border-violet/40">
           <CardHeader
             title="Recent activity"
             icon={<MessagesSquare className="h-4 w-4" />}
@@ -130,7 +130,7 @@ export function Dashboard() {
               {msgs.map((m) => {
                 const peer = m.direction === "out" ? m.to.find((p) => p !== rt.identity?.pubkey) ?? m.from : m.from;
                 return (
-                  <li key={m.id} className="flex items-center gap-3 px-5 py-3">
+                  <li key={m.id} className="flex items-center gap-3 px-5 py-3 transition-colors hover:bg-ink-800/60">
                     {m.type === "payment-request" || m.type === "payment-receipt" ? <ReceiptText className="h-4 w-4 text-violet-soft" /> : <MessagesSquare className="h-4 w-4 text-ink-400" />}
                     <div className="min-w-0 flex-1">
                       <div className="text-xs text-ink-300">
@@ -170,7 +170,7 @@ export function Dashboard() {
         </Card>
       </div>
 
-      <Card className="mt-4">
+      <Card className="mt-4 transition-colors hover:border-violet/40">
         <CardHeader
           title="Payments"
           icon={<ReceiptText className="h-4 w-4" />}
@@ -181,7 +181,7 @@ export function Dashboard() {
         ) : (
           <ul className="divide-y divide-ink-700">
             {rt.ledgerEntries.slice(0, 5).map((e) => (
-              <li key={e.requestId} className="flex items-center justify-between gap-3 px-5 py-3 text-xs">
+              <li key={e.requestId} className="flex items-center justify-between gap-3 px-5 py-3 text-xs transition-colors hover:bg-ink-800/60">
                 <span className="font-mono text-ink-300">{e.requestId.slice(0, 18)}…</span>
                 <span className="text-ink-200">{e.wire.request.description || "Payment request"}</span>
                 <Badge tone={e.state === "paid" ? "good" : e.state === "failed" || e.state === "declined" ? "bad" : "info"}>{e.state}</Badge>

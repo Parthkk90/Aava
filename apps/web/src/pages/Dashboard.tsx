@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Activity, ArrowRight, Fingerprint, MessagesSquare, Network, ReceiptText, Wallet } from "lucide-react";
 import type { RelayState } from "@relaymesh/relay-mesh";
 import { useRuntime } from "../ui/use-runtime.ts";
-import { Badge, Card, CardBody, CardHeader, Dot, Empty, KV, Mono, PageHeader, timeAgo, type Tone } from "../ui/kit.tsx";
+import { Badge, Card, CardBody, CardHeader, Dot, Empty, KV, Mono, timeAgo, type Tone } from "../ui/kit.tsx";
 
 export function relayTone(s: RelayState["status"]): Tone {
   return s === "open" ? "good" : s === "connecting" ? "info" : s === "backoff" ? "bad" : "neutral";
@@ -20,11 +20,50 @@ export function Dashboard() {
   const counts = obs.reduce<Record<string, number>>((m, r) => ({ ...m, [r.status]: (m[r.status] ?? 0) + 1 }), {});
   const lastRun = obs.length ? obs[obs.length - 1]!.finishedAt : null;
   const pending = rt.mesh?.pendingOutbox().length ?? 0;
+  const passing = counts["PASS"] ?? 0;
+
+  const stats: [string, string][] = [
+    [`${open.length}/${relays.length}`, "relays connected"],
+    [`${rt.store?.all().length ?? 0}`, "messages on device"],
+    [obs.length ? `${passing}/${obs.length}` : "–", "observatory tests passing"],
+    [`${pending}`, "events queued"],
+  ];
 
   return (
     <>
-      <PageHeader title="Dashboard" subtitle="Live status of your identity, connections, and payments. Every value here is read from the running client, not estimated." />
-      <div className="grid gap-4 lg:grid-cols-3">
+      <header className="relative overflow-hidden rounded-xl border border-ink-700 bg-ink-850">
+        <div className="grid-bg pointer-events-none absolute inset-0 opacity-60" />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-20 -top-24 h-56 w-72 rounded-full bg-violet/10 blur-[80px]"
+        />
+        <div className="relative px-5 py-6 sm:px-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-violet-soft">Live overview</p>
+          <div className="mt-2 flex flex-wrap items-center justify-between gap-4">
+            <h1 className="text-2xl font-semibold tracking-tight text-ink-100 sm:text-3xl">
+              Everything here is read from the{" "}
+              <span className="bg-gradient-to-r from-cyan via-violet-soft to-violet bg-clip-text text-transparent">running client</span>.
+            </h1>
+            <span className="inline-flex items-center gap-1.5 rounded-lg border border-ink-600 bg-ink-900/80 px-3 py-1.5 text-xs text-ink-300">
+              {open.length > 0 ? <Dot tone="good" pulse /> : <Dot tone="bad" />}
+              {open.length > 0 ? "Online" : "Offline"}
+            </span>
+          </div>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink-300">
+            Live status of your identity, connections, and payments. Every value on this page comes from real state: never estimated, never faked.
+          </p>
+          <dl className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-ink-700 bg-ink-700 sm:grid-cols-4">
+            {stats.map(([k, v]) => (
+              <div key={v} className="bg-ink-900 px-4 py-4">
+                <dt className="font-mono text-lg text-ink-100">{k}</dt>
+                <dd className="mt-1 text-xs text-ink-400">{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </header>
+
+      <div className="mt-4 grid gap-4 lg:grid-cols-3">
         <Card>
           <CardHeader title="Identity" icon={<Fingerprint className="h-4 w-4" />} actions={<Badge tone="good">Unlocked</Badge>} />
           <CardBody>
@@ -40,7 +79,11 @@ export function Dashboard() {
         </Card>
 
         <Card>
-          <CardHeader title="Communication" icon={<Network className="h-4 w-4" />} actions={<Link to="/app/relays" className="text-xs text-ink-300 hover:text-ink-100">Manage</Link>} />
+          <CardHeader
+            title="Communication"
+            icon={<Network className="h-4 w-4" />}
+            actions={<Link to="/app/relays" className="text-xs text-ink-300 transition-colors hover:text-ink-100">Manage</Link>}
+          />
           <CardBody>
             <KV
               rows={[
@@ -54,7 +97,11 @@ export function Dashboard() {
         </Card>
 
         <Card>
-          <CardHeader title="Wallet & network" icon={<Wallet className="h-4 w-4" />} actions={<Link to="/app/wallet" className="text-xs text-ink-300 hover:text-ink-100">Open</Link>} />
+          <CardHeader
+            title="Wallet & network"
+            icon={<Wallet className="h-4 w-4" />}
+            actions={<Link to="/app/wallet" className="text-xs text-ink-300 transition-colors hover:text-ink-100">Open</Link>}
+          />
           <CardBody>
             <KV
               rows={[
@@ -71,7 +118,11 @@ export function Dashboard() {
 
       <div className="mt-4 grid gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-2">
-          <CardHeader title="Recent activity" icon={<MessagesSquare className="h-4 w-4" />} actions={<Link to="/app/messages" className="text-xs text-ink-300 hover:text-ink-100">All messages</Link>} />
+          <CardHeader
+            title="Recent activity"
+            icon={<MessagesSquare className="h-4 w-4" />}
+            actions={<Link to="/app/messages" className="text-xs text-ink-300 transition-colors hover:text-ink-100">All messages</Link>}
+          />
           {msgs.length === 0 ? (
             <Empty title="No messages yet">Add a contact by npub and send an encrypted message.</Empty>
           ) : (
@@ -95,7 +146,7 @@ export function Dashboard() {
           )}
         </Card>
 
-        <Card>
+        <Card className="transition-colors hover:border-violet/40">
           <CardHeader title="Privacy Observatory" icon={<Activity className="h-4 w-4" />} />
           <CardBody className="space-y-3">
             {obs.length === 0 ? (
@@ -112,7 +163,7 @@ export function Dashboard() {
                 <p className="text-[11px] text-ink-400">Last run {lastRun ? timeAgo(Date.parse(lastRun)) : "–"}. Results are per test, never combined into a score.</p>
               </>
             )}
-            <Link to="/app/observatory" className="inline-flex items-center gap-1 text-xs text-violet-soft hover:text-ink-100">
+            <Link to="/app/observatory" className="inline-flex items-center gap-1 text-xs text-violet-soft transition-colors hover:text-ink-100">
               Open Observatory <ArrowRight className="h-3 w-3" />
             </Link>
           </CardBody>
@@ -120,7 +171,11 @@ export function Dashboard() {
       </div>
 
       <Card className="mt-4">
-        <CardHeader title="Payments" icon={<ReceiptText className="h-4 w-4" />} actions={<Link to="/app/payments" className="text-xs text-ink-300 hover:text-ink-100">Open</Link>} />
+        <CardHeader
+          title="Payments"
+          icon={<ReceiptText className="h-4 w-4" />}
+          actions={<Link to="/app/payments" className="text-xs text-ink-300 transition-colors hover:text-ink-100">Open</Link>}
+        />
         {rt.ledgerEntries.length === 0 ? (
           <Empty title="No payment requests received">Requests from contacts appear here after their signature and policy checks.</Empty>
         ) : (
